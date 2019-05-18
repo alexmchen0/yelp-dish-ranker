@@ -6,6 +6,7 @@ from textblob import TextBlob
 
 
 def find_dish_polarities(nlp, reviews):
+    # Extract dishes from reviews and collect sentiments per dish
     dish_pols = defaultdict(list)
     for text in reviews:
         for sentence in text.split('.'):
@@ -23,9 +24,13 @@ def find_dish_polarities(nlp, reviews):
 
 
 def combine_similar_dishes(dish_pols, threshold):
+    # Create graph where two dishes are connected if they are similar enough
+    # i.e. the Jaro-Winkler distance between them are above the threshold
     graph = {dish : [d for d in dish_pols if jaro_winkler(dish, d) > threshold] 
                 for dish in dish_pols}
 
+    # Group similar dishes together by finding connected components in graph
+    # Use the shortest name and aggregate polarities for each component
     def dfs(dish):
         name, pols = dish, []
         to_visit = [dish]
@@ -51,6 +56,8 @@ def combine_similar_dishes(dish_pols, threshold):
 
 
 def score(pols, stars, prior_votes):
+    # Bayesian Average Ratings: www.evanmiller.org/bayesian-average-ratings.html
+    # Round scores to nearest star rating, start with uniform neutral prior
     votes = [prior_votes] * (stars * 2 + 1)
     utilities = range(-stars, stars + 1)
     for polarity in pols:
@@ -67,6 +74,8 @@ def rank_dishes(models_path, reviews):
 
 
 if __name__ == '__main__':
+    # Rank and print top 20 dishes of sample, Emerald Chinese Restaurant
+    # (www.yelp.com/biz/emerald-chinese-restaurant-mississauga)
     with open('emerald_reviews.json', 'r') as f:
         sample_reviews = ujson.loads(f.read())
 

@@ -5,6 +5,7 @@ from collections import defaultdict
 from rank_dishes import rank_dishes
 
 def get_restaurants(business_path):
+    # Get business_id of all restaurants in the dataset
     restaurants = {}
     with open(business_path, 'r', encoding='utf8') as f:
         for line in f:
@@ -15,6 +16,7 @@ def get_restaurants(business_path):
 
 
 def get_reviews(restaurants, review_path):
+    # Get reviews for each business_id 
     reviews = defaultdict(list)
     with open(review_path, 'r', encoding='utf8') as f:
         for line in f:
@@ -34,6 +36,7 @@ if __name__ == '__main__':
         dishes = rank_dishes('models', reviews)
         best_dishes[bid] = [dish for dish, _ in dishes]
 
+    # Write rankings to a file
     max_bytes = 2**31 - 1
     dump = ujson.dumps(best_dishes)
     with open('best_dishes.json', 'w') as f:
