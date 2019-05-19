@@ -15,7 +15,7 @@ The `rank_dishes` method...
 ## Run
 To test the ranking algorithm, simply install the libraries found in `requirements.txt` and run `rank_dishes.py`. It will read in and execute on the sample reviews in `emerald_reviews.json`, which are real reviews for the [Emerald Chinese Restaurant](https://www.yelp.com/biz/emerald-chinese-restaurant-mississauga) in Mississauga, Ontario.
 
-Running `rank_dishes.py` as is takes <10 seconds and prints the following output
+Running `rank_dishes.py` as is takes <10 seconds and prints the following output:
 ```markdown
 Emerald Chinese Restaurant - 20 best dishes:
 1 - dim sum 0.598
