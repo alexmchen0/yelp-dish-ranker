@@ -3,14 +3,14 @@ Ranks dishes for Yelp restaurants from reviews using NLP tools (spaCy, TextBlob,
 
 Built upon data from the [Yelp Dataset Challenge](https://www.yelp.com/dataset/challenge). 
 
-This repo contains my contribution to the final group project for CS 378, Practical Applications of Natural Language Processing ([additional information about the project](https://drive.google.com/file/d/1mAWVMVX-FmyH9mKzTuVpU-LFHbdkc2EF/view?usp=sharing))
+This repo contains my contributions to my final group project for CS 378, Practical Applications of Natural Language Processing ([about the project](https://drive.google.com/file/d/1mAWVMVX-FmyH9mKzTuVpU-LFHbdkc2EF/view?usp=sharing)).
 
 The `rank_dishes` method...
 1. Recognizes dishes from Yelp text reviews using a [custom spaCy NER model](https://spacy.io/usage/training#ner) trained on collected Amazon Turk data
 2. Finds the sentiment of sentences containing dishes using [TextBlob](https://textblob.readthedocs.io/en/dev/quickstart.html#sentiment-analysis) to collect ratings for dishes
-3. Combines similar dishes, e.g. groups of dishes that have a high enough [Jaro-Winkler distance](https://jellyfish.readthedocs.io/en/latest/comparison.html#jaro-winkler-distance).
+3. Combines similar dishes, e.g. groups of dishes that have a high enough [Jaro-Winkler distance](https://jellyfish.readthedocs.io/en/latest/comparison.html#jaro-winkler-distance)
 4. Aggregates dish ratings into a single score using [Bayesian Average Ratings](http://www.evanmiller.org/bayesian-average-ratings.html)
-5. Returns dishes in an ordered list from highest score to lowest score
+5. Returns dishes in an ordered list from best (highest score) to worst (lowest score)
 
 ## Run
 To test the ranking algorithm, simply install the libraries found in `requirements.txt` and run `rank_dishes.py`. It will read in and execute on the sample reviews in `emerald_reviews.json`, which are real reviews for the [Emerald Chinese Restaurant](https://www.yelp.com/biz/emerald-chinese-restaurant-mississauga) in Mississauga, Ontario.
